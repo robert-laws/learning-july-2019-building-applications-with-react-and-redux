@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as courseActions from '../../redux/actions/courseActions';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 
 class CoursesPage extends Component {
   state = {
@@ -20,7 +24,13 @@ class CoursesPage extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state.course.title)
+    // step 1 - dispatch action
+    this.props.actions.createCourse(this.state.course);
+    this.setState({
+      course: {
+        title: ''
+      }
+    })
   }
 
   render() {
@@ -37,7 +47,7 @@ class CoursesPage extends Component {
         <Box m="1rem">
           <form onSubmit={this.handleSubmit}>
             <TextField
-              defaultValue={this.state.course.title}
+              value={this.state.course.title}
               onChange={this.handleChange}
               variant="outlined"
               margin="normal"
@@ -60,11 +70,33 @@ class CoursesPage extends Component {
           </form>
         </Box>
         <Box m="1rem">
-          
+          {this.props.courses.map(({ title }, index) => (
+            <div key={index}>
+              {title}
+            </div>
+          ))}
         </Box>
       </>
     )
   }
 }
 
-export default CoursesPage;
+CoursesPage.propTypes = {
+  courses: PropTypes.array.isRequired,
+  actions: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => {
+  // step 4 - react re-renders
+  return {
+    courses: state.courses
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(courseActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
