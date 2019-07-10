@@ -18,11 +18,14 @@ const Header = () => {
       marginLeft: theme.spacing(1),
     },
     spacer: {
+      marginRight: theme.spacing(1),
       marginLeft: theme.spacing(3),
     }
   }));
 
   const classes = useStyles();
+
+  const LinkRef = React.forwardRef((props, ref) => <div ref={ref}><NavLink {...props} /></div>)
 
   return (
     <div className={classes.root}>
@@ -31,13 +34,13 @@ const Header = () => {
           <Typography variant="h6" className={classes.title}>
             React App
           </Typography>
-          <Button component={ NavLink } to="/" exact activeStyle={activeStyle} className={[classes.menuButton, classes.spacer]} variant="contained" color="secondary">
+          <Button component={ LinkRef } to="/" exact activeStyle={activeStyle} className={classes.spacer} variant="contained" color="secondary">
             Home
           </Button>
-          <Button component={ NavLink } to="/about" activeStyle={activeStyle} className={classes.menuButton} variant="contained" color="secondary">
+          <Button component={ LinkRef } to="/about" activeStyle={activeStyle} className={classes.menuButton} variant="contained" color="secondary">
             About
           </Button>
-          <Button component={ NavLink } to="/courses" activeStyle={activeStyle} className={classes.menuButton} variant="contained" color="secondary">
+          <Button component={ LinkRef } to="/courses" activeStyle={activeStyle} className={classes.menuButton} variant="contained" color="secondary">
             Courses
           </Button>
         </Toolbar>
