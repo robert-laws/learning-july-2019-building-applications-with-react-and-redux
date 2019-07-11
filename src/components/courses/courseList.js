@@ -38,12 +38,12 @@ const CourseList = ({ courses }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {courses.map(({id, title, authorId, slug, category}) => (
+          {courses.map(({id, title, authorName, slug, category}) => (
             <TableRow key={id}>
               <TableCell >
                 <Link to={`/course/${slug}`}>{title}</Link>
               </TableCell>
-              <TableCell>{authorId}</TableCell>
+              <TableCell>{authorName}</TableCell>
               <TableCell>{category}</TableCell>
             </TableRow>
           ))}
