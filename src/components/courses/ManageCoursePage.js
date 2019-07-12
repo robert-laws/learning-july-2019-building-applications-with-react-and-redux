@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { loadCourses } from '../../redux/actions/courseActions';
 import { loadAuthors } from '../../redux/actions/authorActions';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 
 class ManageCoursePage extends Component {
   componentDidMount() {
@@ -34,7 +36,7 @@ class ManageCoursePage extends Component {
   }
 }
 
-ManageCoursePage.PropTypes = {
+ManageCoursePage.propTypes = {
   authors: PropTypes.array.isRequired,
   courses: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
